@@ -10,13 +10,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <javacpp.version>1.5.7</javacpp.version>
     </properties>
     
     <dependencies>
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>javacpp</artifactId>
-            <version>1.0</version>
+            <version>${javacpp.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -44,13 +45,21 @@
            <plugin>
                 <groupId>org.bytedeco</groupId>
                 <artifactId>javacpp</artifactId>
-                <version>1.0</version>
+                <version>${javacpp.version}</version>
                 <configuration>
+<!--                    <properties>windows-x86_64-mingw</properties>-->
                     <classPath>${project.build.outputDirectory}</classPath>
                     <includePaths>
                         <includePath>${project.build.sourceDirectory}</includePath>
                     </includePaths>
                     <copyLibs>true</copyLibs>
+                    <compilerOptions>
+<!--                        <compilerOption>-shared</compilerOption>-->
+<!--                        <compilerOption>-Wall</compilerOption>-->
+<!--                        <compilerOption>-Ofast</compilerOption>-->
+<!--                        <compilerOption>-march=native</compilerOption>-->
+<!--                        <compilerOption>-DSM4NI_UNROLL</compilerOption>-->
+                    </compilerOptions>
                 </configuration>
                 <executions>
                     <execution>
@@ -69,35 +78,37 @@
             </plugin>
             
             <!-- Alternative / old-style way to get it to compile. 
-            based on https://github.com/bytedeco/javacpp/wiki/Maven
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <id>javacpp</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>-jar</argument>
-                                <argument>${org.bytedeco:javacpp:jar}</argument>
-                                <argument>-classpath</argument>
-                                <argument>${project.build.outputDirectory}</argument>
-                                <argument>-Xcompiler</argument>
-                                <argument>-I${basedir}/src/main/java</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
+            based on https://github.com/bytedeco/javacpp/wiki/Maven -->
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>exec-maven-plugin</artifactId>-->
+<!--                <version>1.2.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>javacpp</id>-->
+<!--                        <phase>process-classes</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>exec</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <executable>java</executable>-->
+<!--                            <arguments>-->
+<!--                                <argument>-jar</argument>-->
+<!--                                <argument>${org.bytedeco.javacpp:javacpp:jar}</argument>-->
+<!--                                <argument>-classpath</argument>-->
+<!--                                <argument>${project.build.outputDirectory}</argument>-->
+<!--                                <argument>-d</argument>-->
+<!--                                <argument>${project.build.outputDirectory}</argument>-->
+<!--&lt;!&ndash;                                <argument>-Xcompiler</argument>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <argument>-I${basedir}/src/main/java</argument>&ndash;&gt;-->
+<!--                            </arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             
             <!-- Uncomment this to make a jar with all dependencies bundled in, 
-               so you can run it with java -jar javacpp-mvn-simple-demo-1.0-SNAPSHOT-jar-with-dependencies.jar
+               so you can run it with java -jar javacpp-mvn-simple-demo-1.0-SNAPSHOT-jar-with-dependencies.jar-->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -119,7 +130,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin> -->
+            </plugin>
             
         </plugins>
     </build>

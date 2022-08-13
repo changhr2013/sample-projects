@@ -8,8 +8,9 @@ public class MultiplyDemoTest {
     }
 
     @Test
-    public void testMain() {
+    public void testMain() throws Exception {
         MultiplyDemo.main(null);
+        Sm4Ref.main(null);
     }
 
 }
