@@ -27,10 +27,12 @@ public class Sm4Ref {
 
         byte[] plainText = HexBin.decode("681EDF34D206965E86B3E94F536E4246");
         byte[] cipherText = new byte[16];
-        byte[] cipherText2 = new byte[16];
 
         byte[] decrypt = new byte[16];
-        byte[] decrypt2 = new byte[16];
+
+
+        byte[] plainTex2 = HexBin.decode("681EDF34D206965E86B3E94F536E4246681EDF34D206965E86B3E94F536E4246681EDF34D206965E86B3E94F536E4246681EDF34D206965E86B3E94F536E4246");
+        byte[] cipherText2 = new byte[64];
 
         sm4_encrypt(rk, plainText, cipherText);
         System.out.println(HexBin.encode(cipherText));
@@ -38,7 +40,7 @@ public class Sm4Ref {
         sm4_decrypt(rk, cipherText, decrypt);
         System.out.println(HexBin.encode(decrypt));
 
-        sm4_encrypt4(rk, plainText, cipherText2);
+        sm4_encrypt4(rk, plainTex2, cipherText2);
         System.out.println(HexBin.encode(cipherText2));
     }
 }
