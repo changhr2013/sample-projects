@@ -17,8 +17,8 @@ public class Sm4Ref {
 
     public static native void sm4_decrypt(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] ciphertext, @Cast("uint8_t*")byte[] plaintext);
 
-//    public static native void sm4_encrypt4(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] plaintext, @Cast("uint8_t*")byte[] ciphertext);
-//    public static native void sm4_decrypt4(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] ciphertext, @Cast("uint8_t*")byte[] plaintext);
+    public static native void sm4_encrypt4(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] plaintext, @Cast("uint8_t*")byte[] ciphertext);
+    public static native void sm4_decrypt4(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] ciphertext, @Cast("uint8_t*")byte[] plaintext);
 
     public static void main(String[] args) throws Exception {
 
@@ -28,13 +28,22 @@ public class Sm4Ref {
 
         byte[] plainText = HexBin.decode("681EDF34D206965E86B3E94F536E4246");
         byte[] cipherText = new byte[16];
+        byte[] cipherText2 = new byte[16];
+
         byte[] decrypt = new byte[16];
+        byte[] decrypt2 = new byte[16];
 
         sm4_encrypt(rk, plainText, cipherText);
         System.out.println(HexBin.encode(cipherText));
 
         sm4_decrypt(rk, cipherText, decrypt);
         System.out.println(HexBin.encode(decrypt));
+
+        sm4_encrypt4(rk, plainText, cipherText2);
+        System.out.println(HexBin.encode(cipherText2));
+
+        sm4_decrypt4(rk, cipherText2, decrypt2);
+        System.out.println(HexBin.encode(decrypt2));
 
     }
 }
