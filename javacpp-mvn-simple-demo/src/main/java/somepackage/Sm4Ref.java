@@ -33,7 +33,7 @@ public class Sm4Ref {
         byte[] decrypt = new byte[16];
 
 
-        int[] plainTex2 = new int[16];
+        int[] plainTex2 = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54, 0x32, 0x10};
         int[] cipherText2 = new int[16];
 
         sm4_encrypt(rk, plainText, cipherText);
@@ -43,6 +43,7 @@ public class Sm4Ref {
         System.out.println(HexBin.encode(decrypt));
 
         sm4_encrypt4(rk, plainTex2, cipherText2);
+
         ByteBuffer buffer = ByteBuffer.allocate(16 * 4);
         for (int i : cipherText2) {
             buffer.putInt(i);
