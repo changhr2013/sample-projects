@@ -5,6 +5,8 @@ import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.annotation.Cast;
 import org.bytedeco.javacpp.annotation.Platform;
 
+import java.nio.ByteBuffer;
+
 @Platform(include = "somepackage/Sm4Ref.h")
 public class Sm4Ref {
 
@@ -17,7 +19,7 @@ public class Sm4Ref {
 
     public static native void sm4_decrypt(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] ciphertext, @Cast("uint8_t*")byte[] plaintext);
 
-    public static native void sm4_encrypt4(@Cast("const uint32_t*") int[] rk, @Cast("uint8_t*")byte[] plaintext, @Cast("const uint8_t*")byte[] ciphertext);
+    public static native void sm4_encrypt4(@Cast("const uint32_t*") int[] rk, @Cast("uint32_t*")int[] plaintext, @Cast("const uint32_t*")int[] ciphertext);
 
     public static void main(String[] args) throws Exception {
 
@@ -31,8 +33,8 @@ public class Sm4Ref {
         byte[] decrypt = new byte[16];
 
 
-        byte[] plainTex2 = HexBin.decode("681EDF34D206965E86B3E94F536E4246681EDF34D206965E86B3E94F536E4246681EDF34D206965E86B3E94F536E4246681EDF34D206965E86B3E94F536E4246");
-        byte[] cipherText2 = new byte[64];
+        int[] plainTex2 = new int[16];
+        int[] cipherText2 = new int[16];
 
         sm4_encrypt(rk, plainText, cipherText);
         System.out.println(HexBin.encode(cipherText));
@@ -41,6 +43,10 @@ public class Sm4Ref {
         System.out.println(HexBin.encode(decrypt));
 
         sm4_encrypt4(rk, plainTex2, cipherText2);
-        System.out.println(HexBin.encode(cipherText2));
+        ByteBuffer buffer = ByteBuffer.allocate(16 * 4);
+        for (int i : cipherText2) {
+            buffer.putInt(i);
+        }
+        System.out.println(HexBin.encode(buffer.array()));
     }
 }
