@@ -17,8 +17,7 @@ public class Sm4Ref {
 
     public static native void sm4_decrypt(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] ciphertext, @Cast("uint8_t*")byte[] plaintext);
 
-    public static native void sm4_encrypt4(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] plaintext, @Cast("uint8_t*")byte[] ciphertext);
-    public static native void sm4_decrypt4(@Cast("const uint32_t*") int[] rk, @Cast("const uint8_t*")byte[] ciphertext, @Cast("uint8_t*")byte[] plaintext);
+    public static native void sm4_encrypt4(@Cast("const uint32_t*") int[] rk, @Cast("uint8_t*")byte[] plaintext, @Cast("const uint8_t*")byte[] ciphertext);
 
     public static void main(String[] args) throws Exception {
 
@@ -41,9 +40,5 @@ public class Sm4Ref {
 
         sm4_encrypt4(rk, plainText, cipherText2);
         System.out.println(HexBin.encode(cipherText2));
-
-        sm4_decrypt4(rk, cipherText2, decrypt2);
-        System.out.println(HexBin.encode(decrypt2));
-
     }
 }

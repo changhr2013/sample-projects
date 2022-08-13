@@ -25,7 +25,7 @@
 
 // Encrypt 4 blocks (64 bytes) in ECB mode
 
-void sm4_encrypt4(const uint32_t rk[32], void *src, const void *dst)
+void sm4_encrypt4(const uint32_t rk[32], uint8_t *src, const uint8_t *dst)
 {
     // nibble mask
     const __m128i c0f __attribute__((aligned(0x10))) =
